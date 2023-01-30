@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/logIn.js"></script>
+    <link rel="icon" type="image/x-icon" href="img/susan-q-yin-2JIvboGLeho-unsplash.jpg">
+    <link href="css/Login.css" rel="stylesheet" />
+    <link href="css/Layout.css" rel="stylesheet" />
+    <title></title>
+</head>
+<body>
+    <header>
+        <div class="bar">
+
+            <section class="QuickLinks">
+                <ul>
+                    <li>
+                        <a href="Products.html" title="חזרה לאתר">חזרה לאתר</a>
+                    </li>
+
+
+                </ul>
+            </section>
+        </div>
+    </header>
+    <!-- Section: Design Block -->
+    <section class="">
+        <!-- Jumbotron -->
+        <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+            <div class="container">
+                <div class="row gx-lg-5 align-items-center">
+                    <div class="col-lg-4 d-none d-lg-flex">
+                        <img src="img/תמונות-מאמרים-2.png" alt="Trendy Pants and Shoes"
+                             class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
+                    </div>
+
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="card">
+                            <div class="card-body py-5 px-md-5">
+                                <!-- 2 column grid layout with text inputs for the first and last names -->
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" id="registerFirstName" class="form-control" />
+                                            <label class="form-label" for="registerFirstName">First name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" id="registerLastname" class="form-control" />
+                                            <label class="form-label" for="registerLastname">Last name</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Email input -->
+                                <div class="form-outline mb-4">
+                                    <input aria-required="true" class="form-control input-txt-field" id="register
+                                           Email" inputmode="email"
+                                        maxlength="100" name="Email" type="email" value="" x-inputmode="email" />
+                                    <label class="form-label" for="registerEmail">Email address</label>
+                                </div>
+
+                                <!-- Password input -->
+                                <div class="form-outline mb-4">
+                                    <input type="password" id="registerPassword" class="form-control" />
+                                    <label class="form-label" for="registerPassword">Password</label>
+                                </div>
+                                <span>
+                                    החוזק של הסיסמה הוא
+                                    <span id="checkPassword">0</span>
+                                </span>
+                                <button type="submit" onclick="checkPassword()" class="btn btn-primary btn-block mb-4">
+                                    check password
+                                </button>
+
+                                <!-- Submit button -->
+                                <button type="submit" onclick="addUser()" class="btn btn-primary btn-block mb-4">
+                                    Sign up
+                                </button>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Jumbotron -->
+    </section>
+    <!-- Section: Design Block -->
+</body>
+</html>
