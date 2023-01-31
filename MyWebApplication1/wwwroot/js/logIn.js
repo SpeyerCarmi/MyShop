@@ -1,4 +1,11 @@
-﻿
+﻿window.addEventListener("load", goDoShoppingBag());
+
+
+function goDoShoppingBag(){
+    const user = sessionStorage.getItem('user')
+    if (user != null)
+        window.location.href ="ShoppingBag.html"
+}
 
 const connectServer = async () => {
     const Name = document.getElementById("loginName").value;
@@ -16,12 +23,12 @@ const connectServer = async () => {
 }
 
 const addUser = async () => {
-    const Name = document.getElementById("registerEmail").value;
+    const name = document.getElementById("registerEmail").value;
     const password = document.getElementById("registerPassword").value;
     const firstName = document.getElementById("registerFirstName").value;
     const lastName = document.getElementById("registerLastname").value;
 
-    newUser = { "Name": Name, "password": password, "firstName": firstName, "lastName": lastName };
+    newUser = { "Name": name, "password": password, "firstName": firstName, "lastName": lastName };
 
    
     const res = await fetch(`https://localhost:44351/Api/Users`,

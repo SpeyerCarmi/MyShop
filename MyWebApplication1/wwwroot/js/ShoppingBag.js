@@ -1,4 +1,13 @@
-﻿
+﻿function calculateTotalAmount() {
+    let myCartAsJson = sessionStorage.getItem('myCart');
+    myCart = JSON.parse(myCartAsJson);
+    totalAmount = 0
+    myCart.forEach(cart => {
+
+        totalAmount += cart.price
+    })
+    return totalAmount
+}
 function GetMyCart() {
     let myCartAsJson = sessionStorage.getItem('myCart');
     myCart = JSON.parse(myCartAsJson);
@@ -11,7 +20,7 @@ function GetMyCart() {
         i++;
     })
     document.getElementById("itemCount").innerText = myCart.length
-    document.getElementById("totalAmount").innerText = totalAmount
+    document.getElementById("totalAmount").innerHTML = totalAmount
 }
 
 function showCart(cart, i) {
@@ -56,7 +65,7 @@ const placeOrder = async () => {
     const myCartAsJson = sessionStorage.getItem('myCart');
     const myCart = JSON.parse(myCartAsJson);
     const orderItems = myCart.map(createOrderItems);
-    const totalPrice = document.getElementById("totalAmount").value;
+    const totalPrice = calculateTotalAmount()
     const order = createOrder(userId, totalPrice, orderItems);
 
     const response = await fetch("api/Order", {
@@ -81,7 +90,7 @@ const placeOrder = async () => {
 const createOrderItems = (product) => {
     const orderItem = {
         "productId": product.id,
-        "Quantity": "3"
+        "Quantity": 1
     }
     return orderItem;
 }

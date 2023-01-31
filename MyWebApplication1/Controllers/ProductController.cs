@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 
@@ -10,20 +12,29 @@ namespace MyWebApplication1.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-       
-       
+
+        private readonly IMapper _mapper;
+
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, IMapper mapper)
         {
+
+            _mapper = mapper;
+
             _productService = productService;
         }
 
 
 
         [HttpGet]
-        public async Task<IEnumerable<Product>> getProducts([FromQuery] string? name, [FromQuery] string? author, [FromQuery] int? minPrice, [FromQuery] int? maxPrice, [FromQuery] int?[] categoryID, [FromQuery] int? start, [FromQuery] int? limit, [FromQuery] string? orderby, [FromQuery] string? dir)
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> getProducts([FromQuery] string? name, [FromQuery] string? author, [FromQuery] int? minPrice, [FromQuery] int? maxPrice, [FromQuery] int?[] categoryID, [FromQuery] int? start, [FromQuery] int? limit, [FromQuery] string? orderby, [FromQuery] string? dir)
         {
-            return await _productService.getProducts(name, author, minPrice, maxPrice, categoryID, start, limit, orderby, dir);
+            IEnumerable<Product>? products = await _productService.getProducts(name, author, minPrice, maxPrice, categoryID, start, limit, orderby, dir);
+            if (products == null)
+                return NoContent();
+
+            IEnumerable<ProductDTO> productsDTO = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+            return Ok(productsDTO);
 
         }
     }

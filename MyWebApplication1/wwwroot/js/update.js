@@ -2,8 +2,7 @@
     const currentUser = sessionStorage.getItem('user');
     const user = JSON.parse(currentUser);
     console.log(user)
-    //let detailsUser = document.getElementById("detailsUser");
-    //detailsUser.style.setProperty("visibility", "visible");
+
     let name = document.getElementById("registerEmail");
     console.log(name)
     name.setAttribute("value", user.name)
@@ -38,6 +37,24 @@ const update = async () => {
     if (res.ok) {
         alert("the updated worked")
         window.location.href="ShoppingBag.html"
+    }
+    else
+        throw new Error("failed, please try later");
+}
+
+const checkPassword = async () => {
+    const password = document.getElementById("registerPassword").value;
+    const res = await fetch(`https://localhost:44351/Api/Password`,
+        {
+            headers: { "content-type": "application/json" },
+            method: 'POST',
+            body: JSON.stringify(password)
+        })
+    if (res.ok) {
+        debugger;
+        const ans = await res.json()
+        document.getElementById("checkPassword").innerHTML = ans.score;
+
     }
     else
         throw new Error("failed, please try later");

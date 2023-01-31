@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 using System.Text.Json;
@@ -12,39 +14,41 @@ namespace MyWebApplication1.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-       
+        private readonly IMapper _mapper;
 
-        public UsersController(IUserService userService)
+
+        public UsersController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+
+            _mapper = mapper;
+
         }
 
 
         // GET: api/<UserController>
         [HttpGet]
 
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers([FromQuery] string Name, [FromQuery] string password)
+        public async Task<ActionResult<IEnumerable<UserWithoutPasswordDTO>>> GetUsers([FromQuery] string Name, [FromQuery] string password)
         {
             User user = await _userService.getUsers(Name, password);
-            return user == null ? NotFound() : Ok(user);
+            if (user == null)
+                return NoContent();
+            UserWithoutPasswordDTO userDTO = _mapper.Map<User, UserWithoutPasswordDTO>(user);
+            return Ok(userDTO);
         }
 
-
-        // GET api/<UserController>/5
-        [HttpGet("{id}")]
-
-        public string Get(int id)
-        {
-            return "value";
-        }
         // POST api/<UserController>
         [HttpPost]
-        public  async Task<ActionResult<User>> insertUser([FromBody] User user)
+        public  async Task<ActionResult<UserWithoutPasswordDTO>> insertUser([FromBody] UserWithPasswordDTO userDTO)
         {
-            User Suser = await _userService.insertUser(user);
-            if (Suser == null)
-                return NotFound();
-            return CreatedAtAction(nameof(Get), new {id = user.Id }, user);
+
+            User user = _mapper.Map<UserWithPasswordDTO, User>(userDTO);
+
+            User newUser = await _userService.insertUser(user);
+            UserWithoutPasswordDTO newUserDTO = _mapper.Map<User, UserWithoutPasswordDTO>(newUser);
+
+            return CreatedAtAction(nameof(GetUsers), new {id = user.Id }, newUserDTO);
             
 
         }
@@ -56,11 +60,6 @@ namespace MyWebApplication1.Controllers
             _userService.updateUser(id,user);
         }
 
-        // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 
 }

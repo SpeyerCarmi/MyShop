@@ -2,17 +2,21 @@
 window.addEventListener("load", GetCategory());
 
 
-
-
-async function GetProduct() {
-
+function ItemsCountText(){
     let myCartAsJson = sessionStorage.getItem('myCart')
     myCart = JSON.parse(myCartAsJson)
-    //document.getElementById("ItemsCountText").innerHTML = myCart.length
+    if (myCart == null)
+        myCart = []
+    document.getElementById("ItemsCountText").innerHTML = myCart.length
+}
+
+async function GetProduct() {
+    
 
     const res = await fetch(`https://localhost:44351/api/Product`)
     const res1 = await res.json();
     ShowProduct(res1);
+    ItemsCountText();
     return res1;
 }
 function ShowProduct(products) {
@@ -122,7 +126,6 @@ const addToCart = (product) => {
     if (myCart == null)
        myCart = []
   myCart.push(product)
-  alert(product.name+" נוסף לסל בהצלחה")
     document.getElementById("ItemsCountText").innerHTML = myCart.length
     sessionStorage.setItem('myCart',JSON.stringify(myCart))
 }
