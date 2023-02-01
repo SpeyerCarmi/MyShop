@@ -27,6 +27,8 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddControllers();
+app.UseRouting();
 
 if (app.Environment.IsDevelopment())
 {

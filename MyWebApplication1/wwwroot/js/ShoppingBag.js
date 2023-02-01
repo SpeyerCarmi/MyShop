@@ -78,12 +78,13 @@ const placeOrder = async () => {
         throw new Error(`the connect failed ${response.status}, try again`);
     }
     if (response.status == 204) {
-        console.log("order doeswnt craete");
+        console.log("order didnt created");
         return;
     }
-    const newOrder = response.json();
-    alert(`הזמנתך התקבלה בהצלחה`);
-    saveCartToSessionStorage([]);
+    const newOrder = await response.json();
+
+    alert('הזמנתך מספר ' + newOrder.id+' נקלטה בהצלחה במערכת');
+    sessionStorage.removeItem('myCart')
     window.location.href = "Products.html";
 }
 

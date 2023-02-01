@@ -33,7 +33,7 @@ namespace MyWebApplication1.Controllers
             Order newOrder = await _orderService.createOrder(order);
             OrderDTO newOrderDto = _mapper.Map<Order, OrderDTO>(newOrder);
 
-                return newOrderDto;
+                return Ok(newOrderDto);
             }
 
         }

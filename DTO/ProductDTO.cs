@@ -2,7 +2,9 @@
 {
     public class ProductDTO
     {
-            public string Name { get; set; } = null!;
+        public int Id { get; set; }
+
+        public string Name { get; set; } = null!;
             public int CategoryId { get; set; }
             public string Author { get; set; } = null!;
   

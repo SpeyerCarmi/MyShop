@@ -15,12 +15,12 @@ namespace MyWebApplication1.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly ILogger<UsersController> _logger;
 
-
-        public UsersController(IUserService userService, IMapper mapper)
+        public UsersController(IUserService userService, IMapper mapper, ILogger<UsersController> logger)
         {
             _userService = userService;
-
+            _logger = logger;
             _mapper = mapper;
 
         }
@@ -31,6 +31,8 @@ namespace MyWebApplication1.Controllers
 
         public async Task<ActionResult<IEnumerable<UserWithoutPasswordDTO>>> GetUsers([FromQuery] string Name, [FromQuery] string password)
         {
+            _logger.LogInformation("Login attempted with User Name , {0} and password {1}", Name, password);
+
             User user = await _userService.getUsers(Name, password);
             if (user == null)
                 return NoContent();

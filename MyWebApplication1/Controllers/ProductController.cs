@@ -27,9 +27,9 @@ namespace MyWebApplication1.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> getProducts([FromQuery] string? name, [FromQuery] string? author, [FromQuery] int? minPrice, [FromQuery] int? maxPrice, [FromQuery] int?[] categoryID, [FromQuery] int? start, [FromQuery] int? limit, [FromQuery] string? orderby, [FromQuery] string? dir)
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> getProducts([FromQuery] string? name, [FromQuery] string? author, [FromQuery] int? minPrice, [FromQuery] int? maxPrice, [FromQuery] int?[] categoryID, [FromQuery] int? start, [FromQuery] int? limit, [FromQuery] string? orderby, [FromQuery] string? dir, [FromQuery] int? id)
         {
-            IEnumerable<Product>? products = await _productService.getProducts(name, author, minPrice, maxPrice, categoryID, start, limit, orderby, dir);
+            IEnumerable<Product>? products = await _productService.getProducts(name, author, minPrice, maxPrice, categoryID, start, limit, orderby, dir,id);
             if (products == null)
                 return NoContent();
 

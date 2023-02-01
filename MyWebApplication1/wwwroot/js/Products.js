@@ -120,7 +120,6 @@ const filterProducts = () => {
 
 }
 const addToCart = (product) => {
-    console.log(product.id)
     let myCartAsJson = sessionStorage.getItem('myCart')
     myCart = JSON.parse(myCartAsJson)
     if (myCart == null)

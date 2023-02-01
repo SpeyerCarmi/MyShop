@@ -9,6 +9,7 @@ namespace DTO
 {
     public class UserWithPasswordDTO
     {
+        public int Id { get; set; }
 
         [EmailAddress]
 
