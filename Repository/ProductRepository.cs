@@ -16,15 +16,15 @@ namespace Repository
         {
             _dbContext = myDatabaseContext;
         }
-        public async Task<IEnumerable<Product>?> getProducts(string? name, string? author, int? minPrice, int? maxPrice, int?[] categoryID, int? start, int? limit, string? orderby, string? dir, int? id)
+        public async Task<IEnumerable<Product>?> getProducts(string? name, string? author, int? minPrice, int? maxPrice, int?[] categoryID, int? id, int? start, int? limit, string? orderby, string? dir)
         {
             var query = _dbContext.Products.Where(product =>
             (name == null ? true : (product.Name.Contains(name)))
             &&(author == null ? true : (product.Author.Contains(author)))
+            && (id == null ? true : (product.Id == id))
             && (minPrice == null ? true : (product.Price >= minPrice))
             && (maxPrice == null ? true : (product.Price <= maxPrice))
             && ((categoryID.Length == 0) ? true : categoryID.Contains(product.CategoryId))
-            && (id == null ? true : (product.Id == id))
 
             );
             IEnumerable<Product>? products = await query.ToArrayAsync();

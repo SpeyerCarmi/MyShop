@@ -1,2 +1,0 @@
-{"UserId":0,"UserName":"malki@gmail.com","Password":"123","FirstName":"malky","LastName":"speyer"}
-{"UserId":0,"UserName":"michal@gmail.com","Password":"123456","FirstName":"michaly","LastName":"carmi"}

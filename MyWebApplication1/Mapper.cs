@@ -8,9 +8,9 @@ namespace MyWebApplication1
     {
         public Mapper()
         {
-            CreateMap<UserWithPasswordDTO, User>();
+            CreateMap<UserWithPasswordDTO, User>().ReverseMap();
 
-            CreateMap<User, UserWithoutPasswordDTO > ();
+            CreateMap<User, UserWithoutPasswordDTO>();
 
             CreateMap<Product, ProductDTO>()
                 .ForMember(dest => dest.CategoryName, 

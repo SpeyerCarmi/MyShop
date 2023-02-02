@@ -20,12 +20,15 @@ namespace Service
         }
         public async Task<Order> createOrder(Order order)
         {
-            //int count = 0;
-            //foreach (var item in order.OrderItems)
-            //{
-            //    IEnumerable<Product>? product = (IEnumerable<Product>?)_productRepository.getProducts(null, null, null, null, null, null, null, null, null, item.ProductId);
-            //    count += product.price;
-            //}
+            int count = 0;
+            foreach (var item in order.OrderItems)
+            {
+                //IEnumerable<Product> products = await _productRepository.getProducts(null, null, null, null, null, item.ProductId, null, null, null, null);
+
+                //Product res1 = await product.();
+              
+                //count += product.price;
+            }
             
             Order newOrder = await _orderRepository.createOrder(order);
             return newOrder;

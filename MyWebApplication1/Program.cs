@@ -1,12 +1,14 @@
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Middlewares;
 using NLog.Web;
 using Repository;
+using Respository;
 using Service;
 
 
 var builder = WebApplication.CreateBuilder(args);
-var ConnectionString = builder.Configuration.GetConnectionString("home");
+var ConnectionString = builder.Configuration.GetConnectionString("school");
 builder.Services.AddDbContext<MyDatabaseContext>(options => options.UseSqlServer(ConnectionString));
 builder.Host.UseNLog();
 // Add services to the container.
@@ -24,12 +26,17 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var app = builder.Build();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 app.UseRouting();
+app.UseCacheMiddleware();
 
+app.UseErrorHandlingMiddleware();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

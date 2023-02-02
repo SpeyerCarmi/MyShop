@@ -29,26 +29,26 @@ namespace MyWebApplication1.Controllers
         // GET: api/<UserController>
         [HttpGet]
 
-        public async Task<ActionResult<IEnumerable<UserWithoutPasswordDTO>>> GetUsers([FromQuery] string Name, [FromQuery] string password)
+        public async Task<ActionResult<IEnumerable<UserWithPasswordDTO>>> GetUsers([FromQuery] string Name, [FromQuery] string password)
         {
             _logger.LogInformation("Login attempted with User Name , {0} and password {1}", Name, password);
 
             User user = await _userService.getUsers(Name, password);
             if (user == null)
                 return NoContent();
-            UserWithoutPasswordDTO userDTO = _mapper.Map<User, UserWithoutPasswordDTO>(user);
+            UserWithPasswordDTO userDTO = _mapper.Map<User, UserWithPasswordDTO>(user);
             return Ok(userDTO);
         }
 
         // POST api/<UserController>
         [HttpPost]
-        public  async Task<ActionResult<UserWithoutPasswordDTO>> insertUser([FromBody] UserWithPasswordDTO userDTO)
+        public  async Task<ActionResult<UserWithPasswordDTO>> insertUser([FromBody] UserWithPasswordDTO userDTO)
         {
 
             User user = _mapper.Map<UserWithPasswordDTO, User>(userDTO);
 
             User newUser = await _userService.insertUser(user);
-            UserWithoutPasswordDTO newUserDTO = _mapper.Map<User, UserWithoutPasswordDTO>(newUser);
+            UserWithPasswordDTO newUserDTO = _mapper.Map<User, UserWithPasswordDTO>(newUser);
 
             return CreatedAtAction(nameof(GetUsers), new {id = user.Id }, newUserDTO);
             
